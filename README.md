@@ -1,5 +1,5 @@
-# FRC-2020
-Robot repository for FRC year 2020, Infinite Recharge
+# FRC-2021
+Robot repository for FRC year 2021, Infinite Recharge
 
 
 # To Build and Run
