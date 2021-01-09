@@ -41,7 +41,7 @@ public class ShooterVisionCommandGroup extends ParallelRaceGroup {
             ),
             new SequentialCommandGroup(
                 new WaitCommand(Constants.CAROUSEL_SHOOT_DELAY),
-                new RotateStorageContinuous(storageSub, Constants.STORAGE_CAROUSEL_SHOOTER_ROTATION_SPEED, false)
+                new RotateStorageContinuous(storageSub, Constants.STORAGE_CAROUSEL_SHOOTER_ROTATION_SPEED, true)
             )
         );
 
