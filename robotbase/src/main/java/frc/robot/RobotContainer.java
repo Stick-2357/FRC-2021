@@ -21,6 +21,7 @@ import com.systemmeltdown.robot.subsystems.TurretSubsystem;
 import com.systemmeltdown.robotlib.commands.DriveProportionalCommand;
 import com.systemmeltdown.robotlib.subsystems.ClosedLoopSubsystem;
 import com.systemmeltdown.robot.shuffleboard.AutoModeCommandGenerator;
+import com.systemmeltdown.robot.shuffleboard.AutonomousSelectorWidget;
 import com.systemmeltdown.robot.shuffleboard.CellNumberWidget;
 import com.systemmeltdown.robot.shuffleboard.DriveTab;
 import com.systemmeltdown.robot.shuffleboard.FailsafeButtonWidget;
@@ -114,6 +115,8 @@ public class RobotContainer {
         new ClosedLoopSubsystem[] { m_intakeSub, m_shootSub, m_climbSub, m_driveSub, m_visionSub }));
 
     driveTab.addWidget(new CellNumberWidget(SHUFFLEBOARD_TAB_ROBOT, m_storageSub));
+
+    driveTab.addWidget(new AutonomousSelectorWidget(SHUFFLEBOARD_TAB_ROBOT));
 
     TargetingWidget targetingWidget = new TargetingWidget(SHUFFLEBOARD_TAB_ROBOT, m_turretSub);
 
