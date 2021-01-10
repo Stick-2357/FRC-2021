@@ -102,7 +102,7 @@ public class ControlPanelSubsystem extends ClosedLoopSubsystem {
     //     GETTERS
     //===================
     
-    public int getRotations() {
+    public double getRotations() {
         return m_clicksPerRotation / m_rotationTalon.getSelectedSensorPosition();
     }
 
