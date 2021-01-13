@@ -60,6 +60,7 @@ public class RobotContainer {
   // VL53LOXSensorOutput(Constants.BAUD_RATE, Port.kUSB);
 
   private final AutoModeCommandGenerator m_autoModeCommandGenerator;
+  private final AutonomousSelectorWidget m_autoNavPathSelector;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -106,6 +107,8 @@ public class RobotContainer {
       m_shootSub,
       m_visionSub
     );
+
+    m_autoNavPathSelector = new AutonomousSelectorWidget("AUTO");
   }
 
   private void configureShuffleboard() {
@@ -115,8 +118,6 @@ public class RobotContainer {
         new ClosedLoopSubsystem[] { m_intakeSub, m_shootSub, m_climbSub, m_driveSub, m_visionSub }));
 
     driveTab.addWidget(new CellNumberWidget(SHUFFLEBOARD_TAB_ROBOT, m_storageSub));
-
-    driveTab.addWidget(new AutonomousSelectorWidget(SHUFFLEBOARD_TAB_ROBOT));
 
     TargetingWidget targetingWidget = new TargetingWidget(SHUFFLEBOARD_TAB_ROBOT, m_turretSub);
 
@@ -135,6 +136,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_autoModeCommandGenerator.generateCommand();
+    //return m_autoModeCommandGenerator.generateCommand();
+    return m_autoNavPathSelector.generateCommand();
   }
 }
