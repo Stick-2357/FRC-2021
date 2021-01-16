@@ -2,6 +2,9 @@ package com.systemmeltdown.robot.shuffleboard;
 
 import com.systemmeltdown.robotlib.subsystems.drive.FalconTrajectoryDriveSubsystem;
 
+import com.systemmeltdown.robot.commands.AutoBarrelPathCommand;
+import com.systemmeltdown.robot.commands.AutoBouncePathCommand;
+import com.systemmeltdown.robot.commands.AutoSlalomPathCommand;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -47,13 +50,13 @@ public class AutonomousSelectorWidget {
             switch (m_chooser.getSelected()) {
                 case SLALOM:
                     System.out.println("RUN SLALOM");
-                    return new WaitCommand(0);
+                    return new AutoSlalomPathCommand(m_driveSub);
                 case BARRELROLL:
                     System.out.println("RUN BARRELROLL");
-                    return new WaitCommand(0);
+                    return new AutoBarrelPathCommand(m_driveSub);
                 case BOUNCE:
                     System.out.println("RUN BOUNCE");
-                    return new WaitCommand(0);
+                    return new AutoBouncePathCommand(m_driveSub);
                 case NONE:
                 default:
                     System.out.println("ACTION: NONE");
