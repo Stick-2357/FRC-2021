@@ -61,6 +61,8 @@ public class RobotContainer {
 
   private final AutoModeCommandGenerator m_autoModeCommandGenerator;
   private final AutonomousSelectorWidget m_autoNavPathSelector;
+  //Flag to handle if the robot should run code specific to at-home or in-person challenges
+  private final boolean m_isInPerson = false; 
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -137,6 +139,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     //return m_autoModeCommandGenerator.generateCommand();
-    return m_autoNavPathSelector.generateCommand();
+    if(m_isInPerson) {
+      return m_autoModeCommandGenerator.generateCommand();
+    } else {
+      return m_autoNavPathSelector.generateCommand();
+    }
   }
 }
