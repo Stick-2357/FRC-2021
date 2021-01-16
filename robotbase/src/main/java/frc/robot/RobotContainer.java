@@ -10,7 +10,7 @@ package frc.robot;
 import com.systemmeltdown.robot.subsystems.IntakeSubsystem;
 import com.systemmeltdown.robot.subsystems.ShooterSubsystem;
 import com.systemmeltdown.robot.subsystems.StorageSubsystem;
-import com.systemmeltdown.robotlib.subsystems.drive.SingleSpeedFalconDriveSubsystem;
+import com.systemmeltdown.robotlib.subsystems.drive.FalconTrajectoryDriveSubsystem;
 import com.systemmeltdown.robot.subsystems.ClimbSubsystem;
 import com.systemmeltdown.robot.subsystems.FeederSubsystem;
 import com.systemmeltdown.robot.controls.GunnerControls;
@@ -44,7 +44,7 @@ public class RobotContainer {
   public static final String SHUFFLEBOARD_TAB_ROBOT = "Robot";
 
   // The robot's subsystems and commands are defined here...
-  private SingleSpeedFalconDriveSubsystem m_driveSub;
+  private FalconTrajectoryDriveSubsystem m_driveSub;
   private final ClimbSubsystem m_climbSub;
   private final FeederSubsystem m_feederSub;
   public final IntakeSubsystem m_intakeSub;
@@ -59,7 +59,8 @@ public class RobotContainer {
   // public final VL53LOXSensorOutput m_sensor = new
   // VL53LOXSensorOutput(Constants.BAUD_RATE, Port.kUSB);
 
-  private final AutoModeCommandGenerator m_autoModeCommandGenerator;
+  //Automode declarations
+  private AutoModeCommandGenerator m_autoModeCommandGenerator;
   private final AutonomousSelectorWidget m_autoNavPathSelector;
   //Flag to handle if the robot should run code specific to at-home or in-person challenges
   private final boolean m_isInPerson = false; 
@@ -98,7 +99,7 @@ public class RobotContainer {
 
     configureDriveSub();
     configureShuffleboard();
-
+    if(m_isInPerson) {
     m_autoModeCommandGenerator = new AutoModeCommandGenerator(
       "AUTO",
       m_intakeSub,
@@ -109,8 +110,9 @@ public class RobotContainer {
       m_shootSub,
       m_visionSub
     );
-
-    m_autoNavPathSelector = new AutonomousSelectorWidget("AUTO");
+    } else {
+      m_autoNavPathSelector = new AutonomousSelectorWidget("AUTO", m_driveSub);
+    }
   }
 
   private void configureShuffleboard() {

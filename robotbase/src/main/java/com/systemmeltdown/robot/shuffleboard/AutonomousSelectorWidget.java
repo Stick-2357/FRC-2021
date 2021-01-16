@@ -1,10 +1,13 @@
 package com.systemmeltdown.robot.shuffleboard;
 
+import com.systemmeltdown.robotlib.subsystems.drive.FalconTrajectoryDriveSubsystem;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+
 
 /**
  * A Shuffleboard widget that allows editing of wait time and Automode actions.
@@ -21,8 +24,12 @@ public class AutonomousSelectorWidget {
 
     private class AutoNavPathChooser {
         protected SendableChooser<AutomodePaths> m_chooser;
+        private FalconTrajectoryDriveSubsystem m_driveSub;
 
-        protected AutoNavPathChooser() {
+        protected AutoNavPathChooser(FalconTrajectoryDriveSubsystem driveSub) {
+
+            m_driveSub = driveSub;
+
             // Adds Chooser Widget
             ShuffleboardTab tab = Shuffleboard.getTab(m_tabTitle);
             m_chooser = new SendableChooser<>();
@@ -62,10 +69,9 @@ public class AutonomousSelectorWidget {
      * @param tabTitle The title of the tab the widget should be added to.
      * @param index The index of the Wait Time widget, since there are more than one being created.
      */
-    public AutonomousSelectorWidget(String tabTitle) {
+    public AutonomousSelectorWidget(String tabTitle, FalconTrajectoryDriveSubsystem driveSub) {
         m_tabTitle = tabTitle;
-
-        chooser = new AutoNavPathChooser(); //Creates the chooser widget
+        chooser = new AutoNavPathChooser(driveSub); //Creates the chooser widget
     }
 
     public static void show() {
