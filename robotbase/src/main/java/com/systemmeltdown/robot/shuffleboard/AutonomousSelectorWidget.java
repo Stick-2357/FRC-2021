@@ -1,73 +1,9 @@
-/*package com.systemmeltdown.robot.shuffleboard;
-
-import com.systemmeltdown.robot.commands.TemporaryCommand;
-
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
-import edu.wpi.first.wpilibj.shuffleboard.ComplexWidget;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-/**
- * A Shuffleboard widget to auto-select autonomous commands.
- * 
- * @category Shuffleboard
- *//*
-public class AutonomousSelectorWidget extends ShuffleboardWidget {
-    private static ComplexWidget m_autoSelectWidget;
-    private static SendableChooser<Integer> m_chooser;
-
-    /**
-     * @param tabTitle The title of the tab the widget will be added to. If it does
-     *                 not exist, it will be created automatically.c
-     *//*
-    public AutonomousSelectorWidget(String tabTitle) {
-        super(tabTitle);
-
-        m_chooser = new SendableChooser<>();
-        m_chooser.setDefaultOption("NONE", new TemporaryCommand());
-        m_chooser.addOption("ONE", new TemporaryCommand());
-        m_chooser.addOption("TWO", new TemporaryCommand());
-
-        ComplexWidget autoSelectWidget = Shuffleboard.getTab(tabTitle)
-            .add("AutoNav Selector", m_chooser)
-            .withWidget(BuiltInWidgets.kComboBoxChooser);
-
-        m_autoSelectWidget = autoSelectWidget;
-       
-    }
-
-    private void testOutput() {
-        switch (m_chooser.getSelected()) {
-            case 0:
-                System.out.println("NONE TRIGGERED");
-                break;
-            case 1:
-                System.out.println("ONE TRIGGERED");
-                break;
-            case 2:
-                System.out.println("TWO TRIGGERED");
-                break;
-            default:
-                System.out.println("DID NOT WORK");
-        }
-    }
-
-    public void periodic() {
-        // TODO:
-        testOutput();
-    }
-} */
-
 package com.systemmeltdown.robot.shuffleboard;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
@@ -98,7 +34,8 @@ public class AutonomousSelectorWidget {
             m_chooser.addOption("Bounce", AutomodePaths.BOUNCE);
             tab.add("AutoNav Paths ", m_chooser);
         }
-
+        
+        //Switch command to choose what auto command to run.
         public Command getActionCommand() {
             switch (m_chooser.getSelected()) {
                 case SLALOM:
@@ -128,7 +65,7 @@ public class AutonomousSelectorWidget {
     public AutonomousSelectorWidget(String tabTitle) {
         m_tabTitle = tabTitle;
 
-        chooser = new AutoNavPathChooser();
+        chooser = new AutoNavPathChooser(); //Creates the chooser widget
     }
 
     public static void show() {
@@ -136,8 +73,6 @@ public class AutonomousSelectorWidget {
     }
 
     public Command generateCommand() {
-        return new SequentialCommandGroup(
-            chooser.getActionCommand()
-        );
+            return chooser.getActionCommand();
     }
 }
