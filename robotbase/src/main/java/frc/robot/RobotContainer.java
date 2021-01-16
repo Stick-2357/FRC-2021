@@ -59,11 +59,12 @@ public class RobotContainer {
   // public final VL53LOXSensorOutput m_sensor = new
   // VL53LOXSensorOutput(Constants.BAUD_RATE, Port.kUSB);
 
-  //Automode declarations
-  private AutoModeCommandGenerator m_autoModeCommandGenerator;
+  // Automode declarations
+  private final AutoModeCommandGenerator m_autoModeCommandGenerator;
   private final AutonomousSelectorWidget m_autoNavPathSelector;
-  //Flag to handle if the robot should run code specific to at-home or in-person challenges
-  private final boolean m_isInPerson = false; 
+  // Flag to handle if the robot should run code specific to at-home or in-person
+  // challenges
+  private final boolean m_isInPerson = false;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -83,34 +84,20 @@ public class RobotContainer {
 
     // Configure the button bindings
     m_driverControls = new InvertDriveControls.InvertDriveControlsBuilder(new XboxController(0), .1)
-        .withDriveSub(m_driveSub)
-        .withVisionSub(m_visionSub)
-        .build();
+        .withDriveSub(m_driveSub).withVisionSub(m_visionSub).build();
 
-    m_gunnerControls = new GunnerControls.GunnerControlsBuilder(new XboxController(1))
-        .withIntakeSub(m_intakeSub)
-        .withFeederSubsystem(m_feederSub)
-        .withShooterSubsystem(m_shootSub)
-        .withClimbSubsystem(m_climbSub)
-        .withStorageSubsystem(m_storageSub)
-        .withTurretSub(m_turretSub)
-        .withVisionSub(m_visionSub)
-        .build();
+    m_gunnerControls = new GunnerControls.GunnerControlsBuilder(new XboxController(1)).withIntakeSub(m_intakeSub)
+        .withFeederSubsystem(m_feederSub).withShooterSubsystem(m_shootSub).withClimbSubsystem(m_climbSub)
+        .withStorageSubsystem(m_storageSub).withTurretSub(m_turretSub).withVisionSub(m_visionSub).build();
 
     configureDriveSub();
     configureShuffleboard();
-    if(m_isInPerson) {
-    m_autoModeCommandGenerator = new AutoModeCommandGenerator(
-      "AUTO",
-      m_intakeSub,
-      m_driveSub,
-      m_storageSub,
-      m_turretSub,
-      m_feederSub,
-      m_shootSub,
-      m_visionSub
-    );
+    if (m_isInPerson) {
+      m_autoModeCommandGenerator = new AutoModeCommandGenerator("AUTO", m_intakeSub, m_driveSub, m_storageSub,
+          m_turretSub, m_feederSub, m_shootSub, m_visionSub);
+      m_autoNavPathSelector = null;
     } else {
+      m_autoModeCommandGenerator = null;
       m_autoNavPathSelector = new AutonomousSelectorWidget("AUTO", m_driveSub);
     }
   }
@@ -140,8 +127,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    //return m_autoModeCommandGenerator.generateCommand();
-    if(m_isInPerson) {
+    // return m_autoModeCommandGenerator.generateCommand();
+    if (m_isInPerson) {
       return m_autoModeCommandGenerator.generateCommand();
     } else {
       return m_autoNavPathSelector.generateCommand();
