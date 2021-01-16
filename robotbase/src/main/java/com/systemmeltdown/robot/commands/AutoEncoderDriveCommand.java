@@ -7,6 +7,12 @@ public class AutoEncoderDriveCommand extends CommandBase {
     private FalconTrajectoryDriveSubsystem m_driveSub;
     private double m_left, m_right;
 
+    /**
+     * Command that drives for a certian distance
+     * @param driveSub 
+     * @param left - Distance the left wheels with travel (inches)
+     * @param right - Distance the right wheels with travel (inches)
+     */
     public AutoEncoderDriveCommand(FalconTrajectoryDriveSubsystem driveSub, double left, double right) {
         m_driveSub = driveSub;
         m_left = left;
