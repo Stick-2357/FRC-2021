@@ -20,11 +20,12 @@ import frc.robot.Constants;
  */
 public class ShooterSubsystem extends ClosedLoopSubsystem {
 
+  //Numbers
   private static final double[][] degreesToRPMsCurve = {
-    {23.5,  4050}, // Closest
-    {20.4,  4150}, // Initiation line
-    { 6.9,  4700}, // Initiation line
-    { 0.9,  5000}, // Furthest (under control panel)
+    {23.5,  3450}, // Closest
+    {20.4,  3550}, // Initiation line
+    { 6.9,  4100}, // Initiation line
+    { 0.9,  4500}, // Furthest (under control panel)
   };
 
   private WPI_TalonFX m_shooterMotor1;
