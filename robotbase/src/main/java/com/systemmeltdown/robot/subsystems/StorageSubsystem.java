@@ -12,7 +12,7 @@ import com.systemmeltdown.robotlog.topics.DoubleTopic;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 //import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableBuilder;
 
 /**
  * The subsystem for the power cell storage.

@@ -8,7 +8,7 @@ import com.systemmeltdown.robotlog.topics.BooleanTopic;
 import com.systemmeltdown.robotlog.topics.StringTopic;
 
 import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.math.controller.PIDController;
 import frc.robot.Constants;
 
 /**

@@ -9,7 +9,7 @@ import com.systemmeltdown.robotlib.subsystems.LimelightSubsystem.VisionTarget;
 import com.systemmeltdown.robotlog.topics.DoubleTopic;
 import com.systemmeltdown.robotlog.topics.IntegerTopic;
 
-import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import frc.robot.Constants;
 
 /**
