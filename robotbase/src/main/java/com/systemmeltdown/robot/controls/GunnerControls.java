@@ -22,10 +22,12 @@ import com.systemmeltdown.robot.subsystems.StorageSubsystem;
 import com.systemmeltdown.robot.subsystems.TogglableLimelightSubsystem;
 import com.systemmeltdown.robot.subsystems.TurretSubsystem;
 import com.systemmeltdown.robotlib.triggers.AxisThresholdTrigger;
+import com.systemmeltdown.robotlib.util.Utility;
+import com.systemmeltdown.robotlib.util.ControllerAxis;
 import com.systemmeltdown.robotlib.util.XboxRaw;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController.Axis;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
@@ -149,8 +151,8 @@ public class GunnerControls {
         m_downDPad = new POVButton(builder.m_controller, 180);
         m_leftDPad = new POVButton(builder.m_controller, 270);
 
-        m_rightTrigger = new AxisThresholdTrigger(builder.m_controller, Hand.kRight, .1);
-        m_leftTrigger = new AxisThresholdTrigger(builder.m_controller, Hand.kLeft, .1);
+        m_rightTrigger = new AxisThresholdTrigger(builder.m_controller, Axis.kRightTrigger, .1);
+        m_leftTrigger = new AxisThresholdTrigger(builder.m_controller, Axis.kLeftTrigger, .1);
         m_backButton = new JoystickButton(builder.m_controller, XboxRaw.Back.value);
         m_startButton = new JoystickButton(builder.m_controller, XboxRaw.Start.value);
         m_leftBumper = new JoystickButton(builder.m_controller, XboxRaw.BumperLeft.value);
@@ -177,14 +179,32 @@ public class GunnerControls {
     }
 
     /**
-     * Gets the current trigger value from the hand on the left or right.
+     * Gets the current trigger value from the axis on the left or right.
      * 
-     * @param hand Which hand you want to get a value from.
+     * @param axis Which axis you want to get a value from.
      * 
-     * @return The trigger value from the left or right hand.
+     * @return The trigger value from the left or right axis.
      */
-    public double getTriggerValue(Hand hand) {
-        return m_controller.getTriggerAxis(hand);
+    public double getControllerAxisValue(Axis axis) {
+
+        ControllerAxis controllerAxis = ()->{
+        switch (axis) {
+            case kLeftX:
+              return m_controller.getLeftX();
+            case kLeftY:
+              return m_controller.getLeftY();
+            case kLeftTrigger:
+              return m_controller.getLeftTriggerAxis();
+            case kRightTrigger:
+              return m_controller.getRightTriggerAxis();
+            case kRightX:
+              return m_controller.getRightX();
+            case kRightY:
+              return m_controller.getRightY();
+          } 
+          return 0;
+        };
+      return controllerAxis.getAxisValue();
     }
 
     /**

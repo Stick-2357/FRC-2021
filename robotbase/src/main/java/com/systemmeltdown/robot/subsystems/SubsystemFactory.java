@@ -4,12 +4,12 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.systemmeltdown.robotlib.subsystems.drive.SingleSpeedTalonDriveSubsystem;
 import com.systemmeltdown.robot.subsystems.TogglableLimelightSubsystem.PipelineIndex;
 import com.systemmeltdown.robotlib.subsystems.LimelightSubsystem;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.PWM;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 
 import com.systemmeltdown.robotlib.subsystems.drive.FalconTrajectoryDriveSubsystem;
@@ -33,12 +33,9 @@ public class SubsystemFactory {
         SingleSpeedTalonDriveSubsystem.Configuration config = new SingleSpeedTalonDriveSubsystem.Configuration();
         config.m_isRightInverted = true;
 
-        WPI_TalonSRX leftTalonMaster = new WPI_TalonSRX(Constants.DRIVE_MOTOR_LEFT_1);
-        WPI_TalonSRX[] leftTalonSlaves = new WPI_TalonSRX[] { new WPI_TalonSRX(Constants.DRIVE_MOTOR_LEFT_2) };
-        WPI_TalonSRX rightTalonMaster = new WPI_TalonSRX(Constants.DRIVE_MOTOR_RIGHT_1);
-        WPI_TalonSRX[] rightTalonSlaves = new WPI_TalonSRX[] { new WPI_TalonSRX(Constants.DRIVE_MOTOR_RIGHT_2) };
-        SingleSpeedTalonDriveSubsystem subsystem = new SingleSpeedTalonDriveSubsystem(leftTalonMaster, leftTalonSlaves,
-                rightTalonMaster, rightTalonSlaves);
+        WPI_TalonSRX[] leftTalons = new WPI_TalonSRX[] { new WPI_TalonSRX(Constants.DRIVE_MOTOR_LEFT_1), new WPI_TalonSRX(Constants.DRIVE_MOTOR_LEFT_2) };
+        WPI_TalonSRX[] rightTalons = new WPI_TalonSRX[] { new WPI_TalonSRX(Constants.DRIVE_MOTOR_RIGHT_1), new WPI_TalonSRX(Constants.DRIVE_MOTOR_RIGHT_2) };
+        SingleSpeedTalonDriveSubsystem subsystem = new SingleSpeedTalonDriveSubsystem(leftTalons, rightTalons);
         subsystem.configure(config);
         return subsystem;
     }
@@ -75,7 +72,7 @@ public class SubsystemFactory {
     }
 
     public ClimbSubsystem CreateClimbSubsystem() {
-        Solenoid solenoid = new Solenoid(Constants.SCISSOR_SOLENOID_LEFT);
+        Solenoid solenoid = new Solenoid(PneumaticsModuleType.CTREPCM, Constants.SCISSOR_SOLENOID_LEFT);
         //CANSparkMax winchMotor = new CANSparkMax(Constants.WINCH_MOTOR, MotorType.kBrushless);
         CANSparkMax winchMotor = null;
         ClimbSubsystem subsystem = new ClimbSubsystem(solenoid, winchMotor);

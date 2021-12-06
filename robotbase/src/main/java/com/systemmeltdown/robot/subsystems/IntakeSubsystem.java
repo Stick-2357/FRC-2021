@@ -9,6 +9,7 @@ import com.systemmeltdown.robotlib.subsystems.ClosedLoopSubsystem;
 import com.systemmeltdown.robotlog.topics.DoubleTopic;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.Constants;
 
@@ -33,7 +34,7 @@ public class IntakeSubsystem extends ClosedLoopSubsystem {
      * @param reverseChannel The reverse channel number on the PCM on the Double Solenoid.
      */
     public IntakeSubsystem(int intakeTalonID, int forwardChannel, int reverseChannel) {
-        m_intakeSolenoid = new DoubleSolenoid(forwardChannel, reverseChannel);
+        m_intakeSolenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, forwardChannel, reverseChannel);
         m_intakeSolenoid.set(Value.kOff);
         m_intakeTalon = new WPI_TalonSRX(intakeTalonID);
         m_solenoidOffTime = -1;

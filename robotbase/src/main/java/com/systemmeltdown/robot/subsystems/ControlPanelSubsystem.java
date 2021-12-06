@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.util.Color;
 
@@ -38,7 +39,7 @@ public class ControlPanelSubsystem extends ClosedLoopSubsystem {
      */
     public ControlPanelSubsystem(int channel, int rotationTalonID) {
         m_rotationTalon = new WPI_TalonSRX(rotationTalonID);
-        m_extenderSolenoid = new Solenoid(channel);
+        m_extenderSolenoid = new Solenoid(PneumaticsModuleType.CTREPCM,channel);
         m_isExtended.log(m_extenderPosition);
     }
 

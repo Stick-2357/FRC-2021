@@ -29,6 +29,7 @@ import com.systemmeltdown.robot.shuffleboard.TargetingWidget;
 import com.systemmeltdown.robot.shuffleboard.LoggerTab;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.XboxController;
 // import edu.wpi.first.wpilibj.SerialPort.Port; <- Used for VL53LOX Sensor Output
 import edu.wpi.first.wpilibj2.command.Command;
@@ -79,8 +80,8 @@ public class RobotContainer {
     m_storageSub = subsystemFactory.CreateStorageSubsystem();
     m_turretSub = subsystemFactory.CreateTurretSubsystem();
     m_visionSub = subsystemFactory.CreateLimelightSubsystem();
-    m_compressor = new Compressor();
-    m_compressor.setClosedLoopControl(true);
+    m_compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+    m_compressor.enableDigital();
 
     // Configure the button bindings
     m_driverControls = new InvertDriveControls.InvertDriveControlsBuilder(new XboxController(0), .1)
